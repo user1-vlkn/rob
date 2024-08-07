@@ -142,19 +142,6 @@ class User:
                 
                     _s_url = _s_url if 'http' in _s_url else f'https://{_s_url}'
                     
-                    self.page.goto("chrome://version/")
-                    
-                    self.page.evaluate("""Object.defineProperty(navigator, 'webdriver', {get: () => undefined})""")
-                    
-                    time.sleep(3)
-                    
-                    self.page.goto(_s_url)
-                    
-                    self.page.evaluate("""Object.defineProperty(navigator, 'webdriver', {get: () => undefined})""")
-                    
-                    
-                    
-                    self.page.evaluate("""_=> navigator""")
                     
                     utm = random.randint(0, 1) if self.utm else False
                     
@@ -192,6 +179,8 @@ class User:
                     Cookis.setCookie(self.context.cookies(), self.ch, url)
                 
                     Print.log("[+] Wait after goto")
+                    
+                    
                     
                     self.actions.d_wait_random({"min": 4, "max": 5})
                 

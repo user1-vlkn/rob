@@ -6,6 +6,9 @@ import asyncio
 import nodriver as uc
 import json
 import random
+import os
+import requests
+
 
 
 class User_ND:
@@ -112,16 +115,45 @@ class User_ND:
             Print.log('[+] Start User')
             Print.log(self.proxy)
             self.driver = await self.launch_proxy_browser(f'{self.proxy['ip']}:{self.proxy['port']}', self.proxy['login'], self.proxy['pass'])
-            self.page = await self.driver.get("https://httpbin.org/ip")
-            await self.page.sleep(3)
             
-            await self.page.close()
-            # self.driver = await self.launch_proxy_browser('207.244.217.165:6712', "cyipbegl", 'k0ffx4ses8m5')
+            url = self.url['url']
+            url_start = self.conf['start_urls'][random.randint(0, len(self.conf['start_urls']) - 1)] if len(self.conf['start_urls']) > 1 else self.conf['start_urls'][0]
+            
+            _s_url = f"{url}{url_start}"
+                
+            _s_url = _s_url if 'http' in _s_url else f'https://{_s_url}'
+            
+            utm = random.randint(0, 1) if self.utm else False
+                    
+            Print.log(f'[+] Utm status: {utm}')
+            if utm:
+                        
+                try:
+                    Print.log('[+] Get UTM metric')
+                    utm = requests.get(f'http://{self.base_url}/api/v1/getutmargs')
+                            
+                    Print.log(f'[+] UTM: {utm.text}')
+                            
+                    url = f'{url}{utm.text}'
+                        
+                except Exception as e:
+                    Print.error('[+] Error in get UTM metric')
+                    Print.error(e)
+                    
+            # ==============================
+            #          Set Cookie
+            # ==============================
+            
+            # self.page = await self.driver.get("https://httpbin.org/ip")
+            # await self.page.sleep(3)
+            
+            # await self.page.close()
         
         except Exception as e:
             Print.error("[+] Error in method start User_ND")
             Print.error(e)
             await self.page.close()
+
         
             
     def start(self):
@@ -129,9 +161,10 @@ class User_ND:
         try:
             
             uc.loop().run_until_complete(self.run())
-        
+            
         except Exception as e:
             Print.error(e)
+    
 
 
 
@@ -141,9 +174,30 @@ if __name__ == "__main__":
     try:
         args = sys.argv
         
-        # Print.log(args[1])
+        Print.log(args)
         
-        User_ND().start()
+        name_file = f'{args[1]}.json'
+        
+        with open(name_file, 'r') as f:
+            data = json.loads(f.read())
+            
+            user = User_ND(
+                data['url'],
+                data['move'],
+                data['experience'],
+                data['auth'],
+                data['movement'],
+                data['proxy'],
+                data['auth_data'],
+                data['conf'],
+                data['base_url'],
+                data['utm'],
+                data['cookie']                     
+            )
+            user.start()
+        
+        os.remove(name_file)
+        
         
     
     except Exception as e:

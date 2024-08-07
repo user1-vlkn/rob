@@ -10,7 +10,7 @@ from User import User
 from Sleep import Sleep
 import subprocess
 from User_ND import User_ND
-
+import datetime
 
 
 
@@ -72,24 +72,41 @@ class Robot:
                                 
                                 if conf['status']:
                                     
-                                    # subprocess.call(f'python User.py {args}', shell=True)
+                                    data['proxy'] = proxy['data']['proxy']
+                                    data['conf'] = conf['data']
+                                    data['base_url'] = self.base_url
                                     
-                                    user = User_ND(
-                                        data['url'],
-                                        data['move'],
-                                        data['experience'],
-                                        data['auth'],
-                                        data['movement'],
-                                        proxy['data']['proxy'],
-                                        data['auth_data'],
-                                        conf['data'],
-                                        self.base_url,
-                                        utm=data['utm'],
-                                        cookie=data['cookie'],
+                                    for i in range(0, 1):
+                                        name_file = int(time.time())
+                                    
+                                        with open(f'{name_file}.json', 'w+') as f: f.write(json.dumps(data))
+                                    
+                                        res = subprocess.call(f'python User_ND.py {name_file}', shell=True)
+                                    
+                                        Print.log('[+] Done.') if res == 0 else  Print.log('[+] Done with error')
+                                    
+                                    
+                                    
+                                  
+                                    # user = User_ND(
+                                    #     data['url'],
+                                    #     data['move'],
+                                    #     data['experience'],
+                                    #     data['auth'],
+                                    #     data['movement'],
+                                    #     proxy['data']['proxy'],
+                                    #     data['auth_data'],
+                                    #     conf['data'],
+                                    #     self.base_url,
+                                    #     utm=data['utm'],
+                                    #     cookie=data['cookie'],
                                         
-                                        )
-                                    
-                                    user.start()
+                                    #     )
+                                    # user.start()
+                                        
+
+                                    # time.sleep(1)
+                                        
                                 
                                 
                                 
