@@ -1,0 +1,30 @@
+{
+    "main_url": "https://vulkancash.site",
+
+    "close_urls": [
+        "/vulkan/hall-of-fame", "/vulkan/faq", "/vulkan/bonuses/list", "/vulkan/popup-reg", "/vulkan/online-casino", "/vulkan/news",
+        "/vulkan/terms", "/vulkan/jackpot", "/vulkan/", "/vulkan/type/new", "/vulkan/type/slots", "/vulkan/igra-na-razdevanie", "/vulkan/fast_games"
+    ],
+
+    "stub": "/stub.php",
+
+    "start_urls": [
+        "/",
+        "/index.php",
+        "/tournaments.html",
+        "/lotteries.html"
+        
+    ],
+
+    "time": {"min": 120, "max": 300},
+
+
+    "some_do": {
+        "check_el": []
+    },
+
+
+    "some_do_mobile":{
+        "check_el": []
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "main_url": "https://vulcan-royal.site",
+
+    "close_urls": [ "/AffiliateProgram", "/license", "/popup-contacts", "#", "mailto:support@royal777.casino", "tel:+7(717)272-71-21", "/popup-search-games", "/antiblock"],
+
+    "stub": "/src/index_s.php",
+
+    "start_urls": [ 
+        "/",
+        "/popup-login",
+         "/gamehall", 
+         "/tournaments", 
+         "/lotteries", 
+        "/hall-of-fame", 
+         "/faq", "/bonuses/list", "/type/new", "/type/slots", "/type/live", "/type/tables", "/type/fast_games", "/online-casino", "/news"
+    ],
+
+    "time": {"min": 300, "max": 400},
+
+    "some_do": {
+        "check_el": [
+            {"el": "[data-test='popup_close_button']", "el1": "[data-test='popup_close_button']"},
+            {"el": "[data-test-isopened='true']", "el1": "[data-test='sidebar_close']"},
+            {"el": ".android-banner__close", "el1": ".android-banner__close"},
+            {"el": "[data-search-game-form='popup']", "el1": "[data-nav='close']"},
+            {"el": "#widget-container", "el1": ".default-icon-size"},
+            {"el": "#popup-form-login", "el1": "[href='/']"},
+            {"el": "#popup-form-register", "el1": "[href='/']"},
+            {"el": ".popup-redesign__container", "el1":"a[href='/']"}
+        ]
+    },
+
+    "some_do_mobile":{
+        "check_el": [
+            {"el": ".sidebar", "el1": "button[data-test='sidebar_menu_open']"}
+        ]
+    }
+}

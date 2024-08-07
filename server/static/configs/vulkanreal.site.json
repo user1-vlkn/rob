@@ -1,0 +1,21 @@
+{
+    "main_url": "vulkanreal.site",
+
+    "close_urls": [],
+
+    "stub": "/stub.php",
+
+    "start_urls": ["/"],
+
+    "time": {"min": 120, "max": 300},
+
+
+    "some_do": {
+        "check_el": []
+    },
+
+
+    "some_do_mobile":{
+        "check_el": []
+    }
+}

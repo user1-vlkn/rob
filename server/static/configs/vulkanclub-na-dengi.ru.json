@@ -1,0 +1,32 @@
+{
+    "main_url": "https://vulkanclub-na-dengi.ru",
+
+    "close_urls": [ "/AffiliateProgram", "/license", "/popup-contacts", "#", "mailto:support@royal777.casino", "tel:+7(717)272-71-21"],
+
+    "stub": "/src/index_s.php",
+
+    "start_urls": [
+        "/", 
+         "/gamehall", 
+         "/tournaments", 
+         "/lotteries", 
+         "/hof",
+         "/bonuses",
+         "/about",
+         "/terms",
+         "/jackpot",
+         "/mob-app",
+         "/undressing",
+         "/privileges"
+    ],
+
+    "time": {"min": 120, "max": 240},
+
+    "some_do": {
+        "check_el": []
+    },
+    
+    "some_do_mobile":{
+        "check_el": []
+    }
+}

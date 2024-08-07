@@ -1,0 +1,22 @@
+{
+    "10": {
+        "in_work": false,
+        "type": "normal",
+        "experience": "newbie",
+        "visits": [
+            "site.com",
+            "site.com",
+            "site.com"
+        ]
+    },
+    "11": {
+        "in_work": false,
+        "type": "normal",
+        "experience": "old_man",
+        "visits": [
+            "site.com",
+            "site.com",
+            "site.com"
+        ]
+    }
+}
