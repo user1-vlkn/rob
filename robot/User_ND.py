@@ -144,8 +144,10 @@ class User_ND:
             #          Set Cookie
             # ==============================
             
-            # self.page = await self.driver.get("https://httpbin.org/ip")
-            # await self.page.sleep(3)
+            self.page = await self.driver.get("https://httpbin.org/ip")
+            await self.page.sleep(3)
+            
+            # await self.page.
             
             # await self.page.close()
         

@@ -18,7 +18,8 @@ from Link import Link
 from Some_DO import Some_DO
 from Sleep import Sleep
 from GetSizePanel import GetSizePanel
-from playwright.sync_api import sync_playwright, Playwright
+from playwright.sync_api import sync_playwright
+from playwright_stealth import stealth_sync
 
 
 
@@ -130,6 +131,8 @@ class User:
 
                     self.page = self.context.new_page()
                     
+                    stealth_sync(self.page)
+                    
                     move = self.movement['move']
                     
                     self.actions = Actions(move['mousemove'], move['scroll'], self.page)
@@ -147,34 +150,39 @@ class User:
                     
                     Print.log(f'[+] Utm status: {utm}')
                     
-                    if utm:
+                    # if utm:
                         
-                        try:
-                            Print.log('[+] Get UTM metric')
-                            utm = requests.get(f'http://{self.base_url}/api/v1/getutmargs')
+                    #     try:
+                    #         Print.log('[+] Get UTM metric')
+                    #         utm = requests.get(f'http://{self.base_url}/api/v1/getutmargs')
                             
-                            Print.log(f'[+] UTM: {utm.text}')
+                    #         Print.log(f'[+] UTM: {utm.text}')
                             
-                            url = f'{url}{utm.text}'
+                    #         url = f'{url}{utm.text}'
                         
-                        except Exception as e:
-                            Print.error('[+] Error in get UTM metric')
-                            Print.error(e)
-                    else:
+                    #     except Exception as e:
+                    #         Print.error('[+] Error in get UTM metric')
+                    #         Print.error(e)
+                    # else:
                         
-                        cookie = random.randint(0, 1) if self.cookie else False
+                    #     cookie = random.randint(0, 1) if self.cookie else False
                         
-                        if cookie:
+                    #     if cookie:
                         
-                            Print.log('[+] Set cookie')
+                    #         Print.log('[+] Set cookie')
                         
-                            cookies = Cookis.getCookie(self.ch, url)
+                    #         cookies = Cookis.getCookie(self.ch, url)
                         
-                            if cookies: self.context.add_cookies(cookies)
+                    #         if cookies: self.context.add_cookies(cookies)
                     
                     Print.log(f'[+] Go to: {self.url}')
                     
-                    self.page.goto(_s_url)
+                    # self.page.goto(_s_url)
+                    self.page.goto('https://bot.sannysoft.com/')
+                    
+                    
+                    time.sleep(100)
+                    return
                     
                     Cookis.setCookie(self.context.cookies(), self.ch, url)
                 

@@ -6,11 +6,10 @@ import time
 from Print import Print
 import requests
 import json
+import random
 from User import User
 from Sleep import Sleep
-import subprocess
-from User_ND import User_ND
-import datetime
+
 
 
 
@@ -67,107 +66,67 @@ class Robot:
                                 
                                 Print.log("[+] Start visits")
                                 
-                                Print.log("[+] Request getconfvisitorurl for main user")
-                                conf = self.request_m(f"/api/v1/getconfvisitorurl/dns-shop.ru")
-                                
-                                if conf['status']:
+                                for i in data['visits']:
                                     
-                                    data['proxy'] = proxy['data']['proxy']
-                                    data['conf'] = conf['data']
-                                    data['base_url'] = self.base_url
+                                    Print.log(f'[+] Visits url {i['url']}')
                                     
-                                    for i in range(0, 1):
-                                        name_file = int(time.time())
+                                    Print.log("[+] Request getconfvisitorurl in visits")
                                     
-                                        with open(f'{name_file}.json', 'w+') as f: f.write(json.dumps(data))
+                                    # conf = self.request_m(f"/api/v1/getconfvisitorurl/{i['url']}")
                                     
-                                        res = subprocess.call(f'python User_ND.py {name_file}', shell=True)
+                                    Print.log("test")
+                                    conf = self.request_m(f"/api/v1/getconfvisitorurl/dns-shop.ru")
                                     
-                                        Print.log('[+] Done.') if res == 0 else  Print.log('[+] Done with error')
+                                    Print.log(conf)
                                     
                                     
-                                    
-                                  
-                                    # user = User_ND(
-                                    #     data['url'],
-                                    #     data['move'],
-                                    #     data['experience'],
-                                    #     data['auth'],
-                                    #     data['movement'],
-                                    #     proxy['data']['proxy'],
-                                    #     data['auth_data'],
-                                    #     conf['data'],
-                                    #     self.base_url,
-                                    #     utm=data['utm'],
-                                    #     cookie=data['cookie'],
+                                    if conf['status']:
                                         
-                                    #     )
-                                    # user.start()
+                                        Print.warning('[+] Status getconfvisitorurl is [ true ]')
                                         
-
-                                    # time.sleep(1)
+                                        user = User(
+                                            i, 
+                                            data['move'],
+                                            data['experience'],
+                                            False,
+                                            data['movement'],
+                                            proxy['data']['proxy'],
+                                            data['auth_data'],
+                                            conf['data'],
+                                            self.base_url,
+                                            utm=data['utm'],
+                                            cookie=False
+                                            )
                                         
-                                
-                                
-                                
-                                
-                                
-                                
-                                # for i in data['visits']:
-                                    
-                                #     Print.log(f'[+] Visits url {i['url']}')
-                                    
-                                #     Print.log("[+] Request getconfvisitorurl in visits")
-                                    
-                                #     conf = self.request_m(f"/api/v1/getconfvisitorurl/{i['url']}")
-                                    
-                                #     if conf['status']:
+                                        user.run()
                                         
-                                #         Print.warning('[+] Status getconfvisitorurl is [ true ]')
-                                        
-                                #         user = User(
-                                #             i, 
-                                #             data['move'],
-                                #             data['experience'],
-                                #             False,
-                                #             data['movement'],
-                                #             proxy['data']['proxy'],
-                                #             data['auth_data'],
-                                #             conf['data'],
-                                #             self.base_url,
-                                #             utm=data['utm'],
-                                #             cookie=False
-                                #             )
-                                        
-                                #         user.run()
-                                        
-                                #     else:
-                                #         Print.warning('[+] Status getconfvisitorurl was [ false ]')
+                                    else:
+                                        Print.warning('[+] Status getconfvisitorurl was [ false ]')
                                 
                                 # main User
                                 # ============================================================================
                                 
-                                # # Print.log("[+] Request getconfvisitorurl for main user")
-                                # # conf = self.request_m(f"/api/v1/getconfvisitorurl/{data['url']['url']}")
+                                Print.log("[+] Request getconfvisitorurl for main user")
+                                conf = self.request_m(f"/api/v1/getconfvisitorurl/{data['url']['url']}")
                                 
-                                # if conf['status']:
+                                if conf['status']:
                                     
-                                #     user = User(
-                                #         data['url'],
-                                #         data['move'],
-                                #         data['experience'],
-                                #         data['auth'],
-                                #         data['movement'],
-                                #         proxy['data']['proxy'],
-                                #         data['auth_data'],
-                                #         conf['data'],
-                                #         self.base_url,
-                                #         utm=data['utm'],
-                                #         cookie=data['cookie'],
+                                    user = User(
+                                        data['url'],
+                                        data['move'],
+                                        data['experience'],
+                                        data['auth'],
+                                        data['movement'],
+                                        proxy['data']['proxy'],
+                                        data['auth_data'],
+                                        conf['data'],
+                                        self.base_url,
+                                        utm=data['utm'],
+                                        cookie=data['cookie'],
                                         
-                                #         )
+                                        )
                                     
-                                #     user.run()
+                                    user.run()
                                 
                             else:
                                 
