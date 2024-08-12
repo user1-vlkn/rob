@@ -177,12 +177,9 @@ class User:
                     
                     Print.log(f'[+] Go to: {self.url}')
                     
-                    # self.page.goto(_s_url)
-                    self.page.goto('https://bot.sannysoft.com/')
+                    self.page.goto(_s_url)
+                    # self.page.goto('https://bot.sannysoft.com/')
                     
-                    
-                    time.sleep(100)
-                    return
                     
                     Cookis.setCookie(self.context.cookies(), self.ch, url)
                 

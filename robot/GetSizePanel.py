@@ -66,7 +66,7 @@ class GetSizePanel:
                 data = { "chrome": 0, "msedge": 0 }
                 
                 data['chrome'] = int(self.getSizePanel("chrome", "find_me.html"))
-                data['msedge'] = int(self.getSizePanel("msedge", "find_me.html"))
+                # data['msedge'] = int(self.getSizePanel("msedge", "find_me.html"))
                 
                 Print.log(f'[+] Save file {path}')
                 with open(path, 'w+') as f: f.write(json.dumps(data))
@@ -74,7 +74,7 @@ class GetSizePanel:
                 path = data
 
             if ch == 'chrome': return path['chrome']
-            if ch == 'msedge': return path['msedge']
+            # if ch == 'msedge': return path['msedge']
             
             
         except Exception as e:

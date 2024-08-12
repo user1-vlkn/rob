@@ -8,13 +8,17 @@ class Scroll:
     
     
     @staticmethod
-    def scroll(page, act):
+    async def scroll(page, act):
         
         try:
         
             Print.log("[+] Scroll")
-        
-            scroll_max = page.evaluate("Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,document.body.offsetHeight, document.documentElement.offsetHeight, document.body.clientHeight, document.documentElement.clientHeight)")
+           
+            scroll_max = await page.evaluate("Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,document.body.offsetHeight, document.documentElement.offsetHeight, document.body.clientHeight, document.documentElement.clientHeight)")
+            
+            Print.log(f'[+] Scroll size {scroll_max}')
+            
+            scroll_max = int(scroll_max)
         
             viewport = pg.size().height
         
@@ -30,7 +34,13 @@ class Scroll:
                 
                     act.f_move_random_scroll()
 
-                    pos_scroll_now = page.evaluate("window.pageYOffset")
+                    pos_scroll_now = await page.evaluate("window.pageYOffset")
+                    
+                    pos_scroll_now = 0 if pos_scroll_now == None else pos_scroll_now
+                    
+                    Print.log(f'[+] Position scroolY {pos_scroll_now}')
+                    
+                    pos_scroll_now = int(pos_scroll_now)
 
                     if pos_scroll_now < (scroll_max / 2):
                         act.d_scroll((random.randint(0, scroll_max - pos_scroll_now) - 1) * - 1)

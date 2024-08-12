@@ -126,7 +126,7 @@ class Server:
     # get behavior for robot
     def behavior(self, id):
         
-        Print.log("[+] request get behavior for id: {id}")
+        Print.log(f"[+] Request get behavior for id: {id}")
         
         try:
             with open(self.config['robot_config'], 'r', encoding="utf-8") as j:
