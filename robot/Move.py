@@ -6,7 +6,7 @@ class Move:
     
     
     @staticmethod
-    def move(act):
+    async def move(act):
         
         try:
             

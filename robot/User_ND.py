@@ -135,10 +135,6 @@ class User_ND:
             
             Print.log(f'[+] Range walk {range_walk}')
             
-            await Link.link(self.page, self.actions, self.conf['close_urls'])
-            
-            return True
-            
             for _ in range(0, range_walk):
                 
                 Print.log("[+] Some do step")
@@ -151,22 +147,20 @@ class User_ND:
                 
                 Print.warning(f'[+] Type event [{event_el}]')
                 
-                if event_el == 'read_text': Study.study("txt", self.page, self.actions, self.top)
+                if event_el == 'read_text': await Study.study("txt", self.page, self.actions, self.top)
                 
-                if event_el == 'watch_img': Study.study("img", self.page, self.actions, self.top)
+                if event_el == 'watch_img': await Study.study("img", self.page, self.actions, self.top)
                 
-                if event_el == 'auth' and self.auth:
-                    pass
-                    # Auth.auth(self.page, self.actions, self.auth_data)
+                if event_el == 'auth' and self.auth: await Auth.auth(self.page, self.actions, self.auth_data)
                 
                 if event_el == 'scroll': await Scroll.scroll(self.page, self.actions)
                 
                 if event_el == 'move': await Move.move(self.actions)
                 
             Print.log('[+] Find link for click')
-            # Link.link(self.page, self.actions, self.conf['close_urls'])
+            await Link.link(self.page, self.actions, self.conf['close_urls'])
             
-            Sleep.zZz(1000)
+            Sleep.zZz(10)
             Print.log('\n')
 
             return True
@@ -224,7 +218,12 @@ class User_ND:
             
             
             
-            self.page = await self.driver.get("https://royal-vulkan.ru/")
+            # self.page = await self.driver.get("https://royal-vulkan.ru/")
+            
+            # self.page = await self.driver.get("https://pixelscan.net/")
+            self.page = await self.driver.get("https://www.browserscan.net/ru/bot-detection")
+            
+            self.page = await self.driver.get(url)
           
             self.actions = Actions(move['mousemove'], move['scroll'], self.top)
             
@@ -239,6 +238,9 @@ class User_ND:
             time_s = int(time.time()) + time_s
                 
             Print.log(f'[+] Full time in sec {time_s}')
+            
+            
+            time.sleep(110)
                 
             while time_s > int(time.time()):
                     

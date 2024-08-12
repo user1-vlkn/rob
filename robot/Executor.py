@@ -72,6 +72,7 @@ class Executor:
                         "width": qwerqwer.getBoundingClientRect().width,
                         "height":  qwerqwer.getBoundingClientRect().height
                     };
+                    
                     delete qwerqwer;
                     coords;
                     

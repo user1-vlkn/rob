@@ -187,7 +187,7 @@ class Robot:
                 except Exception as e: Print.error(e)
                 
                 time.sleep(1)
-                break
+                # break
             
         except Exception as e:
             Print.error("[+] Error in start method")
