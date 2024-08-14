@@ -3,13 +3,21 @@
         "in_work": true,
         "sleep": 60,
         "move": "fest",
-        "experience": "newbie",
+        "experience": "old_man",
         "cookie": false,
         "utm": false,
-        "visits": [],
+        "visits": [
+            {
+                "url": "vulkan-club.shop",
+                "time": [
+                    496,
+                    549
+                ]
+            }
+        ],
         "auth": true,
         "url": {
-            "url": "http://192.168.88.245:7001",
+            "url": "vulkan-club.shop",
             "time": [
                 496,
                 549

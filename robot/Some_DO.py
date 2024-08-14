@@ -1,38 +1,44 @@
 
 
 from Print import Print
-
+from Executor import Executor
 
 
 class Some_DO:
     
     @staticmethod
-    def some_do(page, act, s):
+    async def some_do(page, act, s):
         
         for i in  s:
             
             try:
                 
-                Print.log("[+] Start some do")
-                a = page.locator(i['el']).all()
+                Print.log("[+] Start Some Do")
                 
-                if len(a) == 0:
+                el = await Executor.locator(page, i['el'])
+                
+                if el == None:
+                    Print.warning(f"[+] Elem {i['el']} is None")
+                    continue
+                
+                if len(el) == 0:
                     Print.warning(f"[+] Not found elem {i['el']}")
-                    return
-                    
-                if isinstance(a, list):
+                    continue
+                
+                coords = await Executor.coords(page, i['el1'], 0)
+                
+                if coords == None:
+                    Print.warning(f'[+] Can not get coords elem {i['el1']}')
+                    continue
+                
+                if len(coords) > 0:
+                    Print.log('[+] Some do elem is > 0')
                         
-                    Print.log("[+] Some elem is list")
-                        
-                    if len(a) > 0:
-                        Print.log('[+] Some do elem is > 0')
+                    Print.log(f'[+] Link {coords}')
                             
-                        link = page.evaluate(f"document.querySelector(\"{i['el1']}\").getBoundingClientRect()")
-                        
-                        Print.log(f'[+] Link {link}')
-                            
-                        if link != None: act.d_click(link)
-                        
+                    if coords != None: act.d_click(coords)
+                
+                Print.log('[+] Next step Some_DO')
                 
             except Exception as e:
                 Print.error('[+] Error in Some DO')

@@ -9,7 +9,6 @@ import os
 import requests
 from Actions import Actions
 import time
-from Cookie import Cookis
 from Print import Print
 from Study import Study
 from Auth import Auth
@@ -138,7 +137,7 @@ class User_ND:
             for _ in range(0, range_walk):
                 
                 Print.log("[+] Some do step")
-                Some_DO.some_do(self.page, self.actions, self.conf['some_do']['check_el'])
+                await Some_DO.some_do(self.page, self.actions, self.conf['some_do']['check_el'])
                 
                 event = ["read_text", "watch_img", "auth", "scroll", "move"]
         
@@ -181,12 +180,12 @@ class User_ND:
             self.driver = await self.launch_browser()
             self.page = self.driver
             
-            
             url = self.url['url']
+
             url_start = self.conf['start_urls'][random.randint(0, len(self.conf['start_urls']) - 1)] if len(self.conf['start_urls']) > 1 else self.conf['start_urls'][0]
-            
+
             move = self.movement['move']
-                    
+
             _s_url = f"{url}{url_start}"
                 
             _s_url = _s_url if 'http' in _s_url else f'https://{_s_url}'
@@ -216,18 +215,13 @@ class User_ND:
             # ==============================
             
             
-            
-            
-            # self.page = await self.driver.get("https://royal-vulkan.ru/")
-            
-            # self.page = await self.driver.get("https://pixelscan.net/")
-            self.page = await self.driver.get("https://www.browserscan.net/ru/bot-detection")
-            
-            self.page = await self.driver.get(url)
-          
+            self.page = await self.driver.get(_s_url)
+                      
             self.actions = Actions(move['mousemove'], move['scroll'], self.top)
             
-            self.actions.d_wait_random({"min": 4, "max": 5})
+            
+            Print.log("[+] User_ND wait")
+            self.actions.d_wait_random({"min": 6, "max": 8})
                 
             time_s = self.url['time']
                 
@@ -239,8 +233,6 @@ class User_ND:
                 
             Print.log(f'[+] Full time in sec {time_s}')
             
-            
-            time.sleep(110)
                 
             while time_s > int(time.time()):
                     
@@ -281,10 +273,9 @@ class User_ND:
             Print.error(e)
     
 
-
-
 if __name__ == "__main__":
     
+    name_file = None
     
     try:
         args = sys.argv
@@ -313,8 +304,14 @@ if __name__ == "__main__":
         
         os.remove(name_file)
         
-        
-    
     except Exception as e:
         Print.error("[+] Error in main User_ND")
         Print.error(e)
+        
+        try:
+            
+            if name_file != None: os.remove(name_file)
+        
+        except Exception as ee:
+            Print.error(f"[+] Can not delete file {name_file}")
+            Print.error(ee)

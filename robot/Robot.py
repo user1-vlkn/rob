@@ -6,11 +6,11 @@ import time
 from Print import Print
 import requests
 import json
-from User import User
+# from User import User
 from Sleep import Sleep
 import subprocess
-from User_ND import User_ND
-import datetime
+# from User_ND import User_ND
+# import datetime
 
 
 
@@ -68,8 +68,38 @@ class Robot:
                                 
                                 Print.log("[+] Start visits")
                                 
+                                for i in data['visits']:
+                                    
+                                    Print.log(f'[+] Visits url {i['url']}')
+                                    
+                                    Print.log("[+] Request getconfvisitorurl in visits")
+                                    
+                                    conf = self.request_m(f"/api/v1/getconfvisitorurl/{i['url']}")
+                                    
+                                    if conf['status']:
+                                        
+                                        Print.warning('[+] Status getconfvisitorurl is [ true ]')
+                                        
+                                        data['proxy'] = proxy['data']['proxy']
+                                        data['conf'] = conf['data']
+                                        data['base_url'] = self.base_url
+                                        
+                                        name_file = int(time.time())
+                                        
+                                        with open(f'{name_file}.json', 'w+') as f: f.write(json.dumps(data))
+                                        
+                                        # res = subprocess.call(f'python User_ND.py {name_file}', shell=True)
+                                        
+                                        res = subprocess.run(["User_ND.exe", f'{name_file}'])
+                                        
+                                        Print.log('[+] Done.') if res == 0 else  Print.log('[+] Done with error')
+                                        
+                                    else: Print.warning('[+] Status getconfvisitorurl was [ false ]')
+                                
+                                
+                                
                                 Print.log("[+] Request getconfvisitorurl for main user")
-                                conf = self.request_m(f"/api/v1/getconfvisitorurl/dns-shop.ru")
+                                conf = self.request_m(f"/api/v1/getconfvisitorurl/{i['url']}")
                                 
                                 if conf['status']:
                                     
@@ -82,7 +112,8 @@ class Robot:
                                     
                                         with open(f'{name_file}.json', 'w+') as f: f.write(json.dumps(data))
                                     
-                                        res = subprocess.call(f'python User_ND.py {name_file}', shell=True)
+                                        res = subprocess.call(f'User_ND.exe {name_file}', shell=True)
+                                        # res = subprocess.call(f'python User_ND.py {name_file}', shell=True)
                                     
                                         Print.log('[+] Done.') if res == 0 else  Print.log('[+] Done with error')
                                     

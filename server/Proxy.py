@@ -47,6 +47,17 @@ class Proxy:
             Print.error(e)
             return False
     
+    @staticmethod
+    def n_pro():
+        res_json = {
+            'ip': 'portal.anyip.io',
+            'port': '1080',
+            'login': 'user_6ca446',
+            'pass': 'dfb877'
+        }
+        
+        return {'proxy': res_json}
+        
     
     @staticmethod
     def pr_url(ip):
@@ -95,10 +106,24 @@ class Proxy:
             Print.error(e)
             return {'proxy': {}}
     
+    
+    @staticmethod
+    def fuck_nigga():
+        res_json = {
+                    'ip': "157.52.253.244",
+                    'port': "6204",
+                    'login': "cyipbegl",
+                    'pass': "k0ffx4ses8m5"
+                }
+                
+        return {'proxy': res_json}
+    
+    
     @staticmethod
     def getproxy():
         
-        m = [Proxy.test_proxy(), Proxy.pr_url('185.46.84.234'), Proxy.pr_url('146.185.207.3')]
+        # m = [Proxy.test_proxy(), Proxy.pr_url('185.46.84.234'),  Proxy.pr_url('146.185.207.3'),Proxy.n_pro()]
+        m = [ Proxy.pr_url('146.185.207.3') ]
         return m[random.randint(0, len(m) - 1)]
         # return Proxy.test_proxy()
 

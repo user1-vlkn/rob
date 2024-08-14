@@ -11,9 +11,7 @@ import numpy as np
 from Print import Print
 from Actions import Actions
 from Executor import Executor
-
-
-import nodriver as run
+# import nodriver as run
 
 
 
@@ -71,8 +69,13 @@ class Study:
             
             tag = 'p' if t == 'txt' else 'img'
             
+            Print.log(f'[+] Tag study {tag}')
+            
+            Print.log("[+] Study wait")
             act.d_wait_random({"min": 3, "max": 4})
             
+            
+            Print.log("[+] Get elem for study")
             locator = await Executor.locator(page, tag)
             
             if len(locator) == 0: 
